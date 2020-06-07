@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>새로고침 엄금! </title>
+</head>
+
+<body>
+  <script type="text/javascript">
+    var rooms = [
+       "숙소가",
+       "숙소가", "폭탄저장고가",
+      "식품저장고가", "고장난 라디오가", "고장난 라디오가",
+      "식품저장고가", "식품저장고가", "빈 방이", "고장난 라디오가",
+      "발전기가", "폐쇠된 고급광산이", "폐쇠된 고급광산이",
+    ];
+    var xnum = [1, 2, 3, 4, 5];
+    var ynum = [2, 3, 4, 5, 6, 7, 8];
+    var usednum = [32768, 64, 25, 815730721,9,16,216,343,625,1296,2401,4096,6561,100000,262144,1000000,1771561,4782969,35831808,100000000];
+    var serched = {
+      room: "압축기가",
+      x: 3,
+      y: 4
+    };
+
+    var serching = function() {
+      var random = Math.floor(Math.random() * rooms.length);
+      serched.room = rooms[random];
+
+      if (rooms.length === 0) {
+        alert("탐색이 종료되었습니다. 그만 누르세요.");
+      } else {
+
+        if (usednum.length < 12 || !usednum.includes(9)) {
+          do {
+            serched.x = xnum[Math.floor(Math.random() * 5)];
+            serched.y = ynum[Math.floor(Math.random() * 3)];
+            var theN = Math.pow(serched.x + serched.y, serched.y);
+          } while (usednum.includes(theN));
+        } else {
+          do {
+            serched.x = xnum[Math.floor(Math.random() * 5)];
+            serched.y = ynum[Math.floor(Math.random() * 7)];
+            var theN = Math.pow(serched.x + serched.y, serched.y);
+          } while (usednum.includes(theN));
+        };
+
+        usednum.unshift(theN);
+
+        if (key.includes(theN)) {
+          alert(
+            '탐색 위치 x=' + serched.x + ", y=" + serched.y + "에서 탈출 포드가 발견되었습니다!!!"
+          );
+          serched.room = "탈출 포드";
+        } else {
+          alert(
+            '벙커좌표 x=' + serched.x + ", y=" + serched.y + "에서 " +
+            serched.room + " 탐색되었습니다."
+          );
+          rooms.splice(random, 1);
+        };
+
+        console.log(serched);
+        console.log(usednum);
+        console.log(rooms);
+        console.log("----------------------------------------------");
+      };
+    };
+
+    var sss = function() {
+      div2.style.display = "";
+    };
+    var swme = function() {
+      var random = Math.floor(Math.random() * rooms.length);
+      serched.room = rooms[random];
+      var chex = document.getElementsByName("tam");
+
+      do {
+          if (chex[0].checked === true) {
+            serched.x = chex[2].value;
+            serched.x = Number(serched.x);
+            serched.y = ynum[Math.floor(Math.random() * 7)];
+          } else {
+            serched.x = xnum[Math.floor(Math.random() * 5)];
+            serched.y = chex[2].value;
+            serched.y = Number(serched.y);
+          }
+        var theN = Math.pow(serched.x + serched.y, serched.y);
+      } while (usednum.includes(theN));
+
+      usednum.unshift(theN);
+      if (key.includes(theN)) {
+        alert(
+          '탐색 위치 x=' + serched.x + ", y=" + serched.y + "에서 탈출 포드가 발견되었습니다!!!"
+        );
+        serched.room = "탈출 포드";
+      } else {
+        alert(
+          '벙커좌표 x=' + serched.x + ", y=" + serched.y + "에서 " +
+          serched.room + " 탐색되었습니다."
+        );
+        rooms.splice(random, 1);
+      };
+      console.log(serched);
+      console.log(usednum);
+      console.log(rooms);
+      console.log("----------------------------------------------");
+      div2.style.display = "none";
+      chex[0].checked = false;
+      chex[1].checked = false;
+      chex[2].value = "";
+    };
+
+    var swm = function() {
+      div3.style.display = "";
+    };
+    var note = function() {
+      var valu = document.getElementsByName("no");
+      var uroom = valu[2].value;
+      var x = valu[0].value;
+      var y = valu[1].value;
+      x= Number(x);
+      y= Number(y);
+      var theN = Math.pow(x + y, y);
+      if (rooms.includes(uroom) && !usednum.includes(theN)) {
+        if (key.includes(theN)) {
+          alert(
+            '탐색 위치 x=' + x + ", y=" + y + "에서 탈출 포드가 발견되었습니다!!!"
+          );
+        } else {
+          usednum.unshift(theN);
+          var unum = rooms.indexOf(uroom);
+          rooms.splice(unum, 1);
+          alert(
+            '벙커좌표 x=' + x + ", y=" + y + "에서 " +
+            uroom + " 탐색되었습니다."
+          );
+          console.log(x, y, uroom, unum);
+          console.log(usednum);
+          console.log(rooms);
+          console.log("----------------------------------------------");
+          div3.style.display = "none";
+        };
+      } else {
+        alert(
+          "그 방은 없다...다른거 하세요"
+        )
+      };
+    };
+
+    var key = [];
+    var talpo = function() {
+      var x = document.getElementsByName("tal")[0].value;
+      var y = document.getElementsByName("tal")[1].value;
+      var x2 = document.getElementsByName("tal")[2].value;
+      var y2 = document.getElementsByName("tal")[3].value;
+      x = Number(x);
+      y = Number(y);
+      x2 = Number(x2);
+      y2 = Number(y2);
+      theN = Math.pow(x+y, y);
+      theN2 = Math.pow(x2+y2, y2);
+      sl = usednum.includes(theN2);
+      s = usednum.includes(theN);
+
+      if ((y == 1) || (s) || (sl) || (y2 == 1)) {
+        alert("어디서 수작질이야 ԅ( `ิิ ∇ `ิิ ԅ) 안돼 다시해");
+        console.log(theN, sl, s);
+      } else {
+        key.push(Math.pow(x + y, y));
+        key.push(Math.pow(x2 + y2, y2));
+        console.log(key);
+        console.log(x, y, x2, y2);
+        console.log(theN, sl, s);
+        div1.style.display = "none";
+      };
+    };
+  </script>
+
+
+  <input type="button" value="탐색하기(돈)" onclick="
+    serching();
+  "><br>
+  <input type="button" value="지하탐색기" onclick="
+    sss();
+  "><br>
+
+  <div id="div2" style="display:none">
+    <h3>지하 탐색기 작동</h3>
+    <p>*지하를 탐색하는 올바른 방법.</p>
+    <p></p>
+    x값 고정<input type="checkbox" name="tam"><br>
+    y값 고정 <input type="checkbox" name="tam"> <br>
+    고정할 라인:
+    <input type="number" name="tam"><br>
+    <br>
+    <input type="button" value="작동!!" onclick="
+      swme();
+    ">
+  </div>
+  <!-- 지하탐색기-->
+  <input type="button" value="방 한 칸 결정" onclick="
+    swm();
+  ">
+
+  <div id="div3" style="display:none">
+    <h3>벙커노트의 힘</h3>
+    <p>*지하를 탐색하는 가장 강력한 방법.</p>
+    <p></p>
+    x:<input type="number" name="no"><br>
+    y:<input type="number" name="no"><br>
+    에
+    <input type="text" name="no" value="(이/가를 붙여 쓰기. 방의 명칭은 벙커도감 참고.)">
+    있습니다.
+    <br>
+    <input type="button" value="결정" onclick="
+      note();
+    ">
+  </div>
+
+
+
+  <div id="div1">
+    <h3>탈출 포드 결정</h3>
+    <p>!*주의:파괴자를 위한 기능입니다. 게임 시작 전 입력해 주세요*!</p>
+    pod1: <br>
+    x=
+    <input type="number" name="tal"><br>
+    y=
+    <input type="number" name="tal"><br>
+    <p></p>
+    pod2: <br>
+    x=
+    <input type="number" name="tal"><br>
+    y=
+    <input type="number" name="tal"><br>
+    <input type="button" value="결정!" onclick="
+    talpo();
+    ">
+  </div>
+
+  <!--
+  <a href="serching.html" style="background-color:powderblue;color:black">새로고침</a>
+  <input class="color" type="button" value="밤이 되었습니다" onclick="
+  var target = document.querySelector('body')
+    if (this.value === '밤이 되었습니다'){
+    target.style.backgroundColor = 'black';
+    target.style.color = 'white';
+    this.value = '고개를 들어 주세요';
+  } else {
+    target.style.backgroundColor = 'white';
+    target.style.color = 'black';
+    this.value ='밤이 되었습니다';
+    }
+  ">-->
+
+
+</body>
+
+</html>
